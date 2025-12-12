@@ -7,7 +7,7 @@ import    {ClerkProvider}  from '@clerk/nextjs';
 
 export const metadata: Metadata = {
   title: "Product App",
-  description: "Demo next app",
+  description: "Demo Next App",
 };
 
 export default function RootLayout({
