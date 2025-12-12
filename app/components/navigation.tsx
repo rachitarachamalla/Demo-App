@@ -33,7 +33,6 @@ export const Navigation = () => {
         <div className="flex gap-5 items-center">
           {navLink("/", "Home")}
           {navLink("/about", "About")}
-          {navLink("/products/1", "Products")}
           {navLink("/mock-users","UserList")}
           {navLink("/jokes","Jokes")}
         </div>
