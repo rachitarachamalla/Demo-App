@@ -2,12 +2,17 @@
 
 import { useState } from "react";
 
+type Joke = {
+  setup: string;
+  punchline: string;
+};
+
 export default function JokePage() {
-  const [joke, setJoke] = useState(null);
+  const [joke, setJoke] = useState<Joke | null>(null);
 
   const getJoke = async () => {
     const res = await fetch("https://official-joke-api.appspot.com/random_joke");
-    const data = await res.json();
+    const data: Joke = await res.json();
     setJoke(data);
   };
 
