@@ -8,7 +8,7 @@ export const Greet = () => {
                     animate-[shine_3s_linear_infinite]">
       <span className="bg-gradient-to-r from-blue-800 via-blue-400 to-blue-800
                    bg-clip-text text-transparent">
-         Welcome to Shopify!
+         Welcome to Appify!
       </span>       
       </h1>
     

@@ -8,7 +8,7 @@ export default function About() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 px-4">
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8 max-w-md w-full text-center">
         <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">
-          About Our Shopify Store
+          About Our Appify Store
         </h1>
         <p className="text-gray-700 dark:text-gray-300 mb-6 ">
           Welcome to Shopify demo! Here you can explore products catalog, 
