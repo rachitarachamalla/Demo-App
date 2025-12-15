@@ -1,6 +1,7 @@
 import { revalidatePath } from     "next/cache";
 import {auth,currentUser} from  "@clerk/nextjs/server";
 
+
 type MockUser = {
   id: number;
   name: string;

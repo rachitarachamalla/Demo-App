@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { useState } from "react";
+import {
+  SignInButton,
+  UserButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
 
 export const Navigation = () => {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   const navLink = (href: string, label: string) => {
     const isActive = pathname === href;
@@ -13,10 +20,11 @@ export const Navigation = () => {
     return (
       <Link
         href={href}
-        className={`px-3 py-1.5 rounded-md text-sm transition-all duration-200
+        onClick={() => setOpen(false)}
+        className={`block px-3 py-2 rounded-md text-sm transition-all
           ${
             isActive
-              ? "bg-blue-600 text-white font-semibold shadow-md"
+              ? "bg-blue-600 text-white font-semibold"
               : "text-gray-300 hover:text-white hover:bg-gray-700"
           }`}
       >
@@ -27,31 +35,75 @@ export const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-md">
-      <div className="max-w-screen-xl mx-auto flex justify-between items-center py-2 px-6">
-
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
        
-        <div className="flex gap-5 items-center">
-          {navLink("/", "Home")}
-          {navLink("/about", "About")}
-          {navLink("/mock-users","UserList")}
-          {navLink("/jokes","Jokes")}
+        <div className="flex h-14 items-center justify-between">
+         
+          <span className="text-white font-bold text-lg">MyApp</span>
+
+          
+          <div className="hidden md:flex gap-5 items-center">
+            {navLink("/", "Home")}
+            {navLink("/about", "About")}
+            {navLink("/mock-users", "UserList")}
+            {navLink("/jokes", "Jokes")}
+          </div>
+
+          
+          <div className="flex items-center gap-3">
+           
+            <div className="hidden md:block">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="px-3 py-1.5 bg-blue-600 text-sm text-white rounded-md hover:bg-blue-700 transition">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
+                <UserButton
+                  appearance={{
+                    elements: { userButtonAvatarBox: "h-9 w-9" },
+                  }}
+                />
+              </SignedIn>
+            </div>
+
+            
+            <button
+              onClick={() => setOpen(!open)}
+              className="md:hidden text-gray-200 focus:outline-none"
+            >
+              ☰
+            </button>
+          </div>
         </div>
 
-        
-        <div >
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="px-3 py-1.5 bg-blue-600 text-sm text-white rounded-md hover:bg-blue-700 transition">
-                Sign In
-              </button>
-            </SignInButton>
-          </SignedOut>
+        {/* Mobile Menu */}
+        {open && (
+          <div className="md:hidden pb-4 space-y-1">
+            {navLink("/", "Home")}
+            {navLink("/about", "About")}
+            {navLink("/mock-users", "UserList")}
+            {navLink("/jokes", "Jokes")}
 
-          <SignedIn>
-            <UserButton appearance={{ elements: { userButtonAvatarBox: "h-9 w-9" } }} />
-          </SignedIn>
-        </div>
-        
+            
+            <div className="pt-3">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="w-full px-3 py-2 bg-blue-600 text-sm text-white rounded-md hover:bg-blue-700 transition">
+                    Sign In
+                  </button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

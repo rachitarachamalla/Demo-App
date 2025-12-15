@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useRef, useEffect } from "react";
 
 export default function ProductList() {
   const [products, setProducts] = useState([
@@ -11,6 +12,15 @@ export default function ProductList() {
   ]);
 
   const [editingProduct, setEditingProduct] = useState<any | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const shouldScrollRef = useRef(false);
+
+  useEffect(() => {
+  if (shouldScrollRef.current) {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    shouldScrollRef.current = false;
+  }
+}, [products]);
 
   const updateQty = (id: number, amount: number) => {
     setProducts((prev) =>
@@ -20,16 +30,18 @@ export default function ProductList() {
     );
   };
 
-  const addProduct = () => {
-    const newProduct = {
-      id: Date.now(),
-      name: `New Product ${products.length + 1}`,
-      price: 1000,
-      image: "/placeholder.png",
-      qty: 0,
-    };
-    setProducts((prev) => [...prev, newProduct]);
+const addProduct = () => {
+  const newProduct = {
+    id: Date.now(),
+    name: `New Product ${products.length + 1}`,
+    price: 1000,
+    image: "/placeholder.png",
+    qty: 0,
   };
+
+  shouldScrollRef.current = true;
+  setProducts((prev) => [...prev, newProduct]);
+};
 
   const deleteProduct = (id: number) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
@@ -115,11 +127,16 @@ export default function ProductList() {
                     {product.name}
                   </span>
                   <span className="text-indigo-600 font-semibold">
-                    ₹{product.price}
+                  Unit Price: ₹{product.price}
                   </span>
                   <span className="text-sm text-slate-500">
-                    Quantity: {product.qty}
+                  Quantity: {product.qty}
                   </span>
+
+<span className="text-sm font-semibold text-green-600">
+  Total: ₹{product.price * product.qty}
+</span>
+              
                 </div>
 
                 <div className="flex gap-2 items-center justify-center flex-wrap">
@@ -157,6 +174,7 @@ export default function ProductList() {
           </div>
         ))}
       </div>
+      <div ref={bottomRef} />
 
       <button
         onClick={addProduct}
