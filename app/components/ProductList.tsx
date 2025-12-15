@@ -56,7 +56,7 @@ const addProduct = () => {
 
   return (
     <div className="mt-10 w-full max-w-3xl mx-auto px-4">
-      <h2 className="text-3xl font-bold mb-8 text-slate-800 tracking-tight">
+      <h2 className="text-3xl font-bold mb-8 text-slate-800 dark:text-gray-300 tracking-tight">
         Product Catalog
       </h2>
 
@@ -142,7 +142,7 @@ const addProduct = () => {
                 <div className="flex gap-2 items-center justify-center flex-wrap">
                   <button
                     onClick={() => updateQty(product.id, -1)}
-                    className="px-3 py-1 rounded-full bg-slate-200 hover:bg-slate-300 transition"
+                    className="px-3 py-1 rounded-full bg-slate-200 text-black hover:bg-slate-300 transition"
                   >
                     −
                   </button>
