@@ -9,6 +9,7 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+import { ThemeToggle } from "./ThemeToggle";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -34,21 +35,22 @@ export const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-md">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-md dark:bg-dark">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
        
-        <div className="flex h-14 items-center justify-between">
+        <div className="flex h-14 items-center justify-between dark:text-white">
          
           <span className="text-white font-bold text-lg">MyApp</span>
 
           
-          <div className="hidden md:flex gap-5 items-center">
+          <div className="hidden md:flex gap-5 items-center  ">
             {navLink("/", "Home")}
             {navLink("/about", "About")}
             {navLink("/mock-users", "UserList")}
             {navLink("/jokes", "Jokes")}
           </div>
 
+          
           
           <div className="flex items-center gap-3">
            
@@ -69,6 +71,9 @@ export const Navigation = () => {
                 />
               </SignedIn>
             </div>
+            <div className="flex flex-1 justify-end">
+            <ThemeToggle/>
+          </div>
 
             
             <button
@@ -80,9 +85,9 @@ export const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        
         {open && (
-          <div className="md:hidden pb-4 space-y-1">
+          <div className="md:hidden pb-4 space-y-1 dark:text-white">
             {navLink("/", "Home")}
             {navLink("/about", "About")}
             {navLink("/mock-users", "UserList")}

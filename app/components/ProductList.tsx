@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import "./ThemeToggle";
+
 
 export default function ProductList() {
   const [products, setProducts] = useState([
